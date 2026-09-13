@@ -1,5 +1,26 @@
 [
   {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "My first weeks in MDS\n\n\n\n\n\n\n\n\nSep 12, 2026\n\n\nPai Hwai\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Pai Hwai",
+    "section": "",
+    "text": "Mingalabar! My name is Pai but i go by Reina. I’m from Myanmar and my family is from the Mergui Islands. I love the sea and my favorite food is clam soup.\nBefore this program, I completed my bachelors in Singapore and worked at a bank in an analyst role. Before continuing my career in data, I chose this opportunity to study at UBC to deepen my technical skills and learn how to be better in data roles.\nIt’s my first time living in Canada, and I’m really excited to see snow for the first time. Before you go, please say hi to my furball Kailan. He’s the cutest little pomsky named after a vegtable.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+  },
+  {
+    "objectID": "posts/first-weeks/index.html",
+    "href": "posts/first-weeks/index.html",
+    "title": "My first weeks in MDS",
+    "section": "",
+    "text": "A quiet afternoon on the UBC campus.\n\n\nThe first week was exciting yet full of challenges. Navigating where classes are and understanding how to retrieve and submit assignments were the most difficult parts. The pace was fast but I think by mid week two, I was able to adjust my time management. I have a good idea now on where I should be putting in more work to cover all the concepts. I also found some nice study spots in the koerner library where it’s really quiet. UBC is a big campus and there are still so many places to explore. Some of my favorite scenic places has to be the water fountain. I also like to grab coffee and some snacks in between lectures and enjoy the seasonal drinks. It’s a little self reward system that gives me something to look forward to in the day. It’s started to be a little chilly in the mornings and I caught a small cold. But as we are settling into new routines, I am really happy to be studying at such a beautiful campus. The rain hasn’t caught up to us yet, so its a great weather to be out and about."
+  },
+  {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About Me",
@@ -26,12 +47,5 @@
     "title": "About Me",
     "section": "Life Besides Data",
     "text": "Life Besides Data\nOutside of Data Science, I enjoy cooking and learning about buddhist philosophies. I’ve recently methodized grocery shopping based off universal pantry staples, staples based off cuisine, and niche ingredients for different recipes. Good food is the cure to almost everything, I believe. I grew up with mostly asian flavors and cusines and they are a great comfort meal for whenever I’m feeling homesick. Cooking at home is also more nutritious. I’ve been learning more about medicinal ingredients and sharing my findings with my mom back home. On the weekends I like to plan for recipes and make my own versions. When the day ends, I like to medidate before going to bed. I think alot about inner peace, compassion and human sufferings. As I’ve had to live through war in my home country, these values have helped me to process difficult experiences and rethink what gives life meaning."
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Pai Hwai",
-    "section": "",
-    "text": "Mingalabar! My name is Pai but i go by Reina. I’m from Myanmar and my family is from the Mergui Islands. I love the sea and my favorite food is clam soup.\nBefore this program, I completed my bachelors in Singapore and worked at a bank in an analyst role. Before continuing my career in data, I chose this opportunity to study at UBC to deepen my technical skills and learn how to be better in data roles.\nIt’s my first time living in Canada, and I’m really excited to see snow for the first time. Before you go, please say hi to my furball Kailan. He’s the cutest little pomsky named after a vegtable.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
   }
 ]

@@ -2,9 +2,30 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "About Me",
     "section": "",
-    "text": "About this site"
+    "text": "I grew up in Myanmar and Thailand before moving abroad to pursue my bachelor’s degree in Data Science at James Cook University Singapore. Singapore shaped me as a person as I was leaving a collectivist culture into a more independent one. I made good friends, attended conferences and took part in data competitions. After university, working in banking taught me alot about the impact of finance and the importance of building good human relationships. Beyond my career, I also got my real estate license and worked as an independent real estate agent on the side. When the inflation crisis hit in Myanmar, what I learned about finance and investing became especially valuable, as I was able to help my family manage our finances through more strategic investments."
+  },
+  {
+    "objectID": "about.html#background",
+    "href": "about.html#background",
+    "title": "About Me",
+    "section": "",
+    "text": "I grew up in Myanmar and Thailand before moving abroad to pursue my bachelor’s degree in Data Science at James Cook University Singapore. Singapore shaped me as a person as I was leaving a collectivist culture into a more independent one. I made good friends, attended conferences and took part in data competitions. After university, working in banking taught me alot about the impact of finance and the importance of building good human relationships. Beyond my career, I also got my real estate license and worked as an independent real estate agent on the side. When the inflation crisis hit in Myanmar, what I learned about finance and investing became especially valuable, as I was able to help my family manage our finances through more strategic investments."
+  },
+  {
+    "objectID": "about.html#why-data",
+    "href": "about.html#why-data",
+    "title": "About Me",
+    "section": "Why Data",
+    "text": "Why Data\nMy passion in data led to me to this program. Choosing big data as a career has its fair share of challenges. There is a persistent need to upskill to keep up with real-time demands. I think of data as the infrastructure powering the front lines of innovation. Seeing different industries through the lens of data is insightful, fascinating and impactful. Working with data taught me to think more analytically and it has been a rewarding experience to continue learning and growing in this field."
+  },
+  {
+    "objectID": "about.html#life-besides-data",
+    "href": "about.html#life-besides-data",
+    "title": "About Me",
+    "section": "Life Besides Data",
+    "text": "Life Besides Data\nOutside of Data Science, I enjoy cooking and learning about buddhist philosophies. I’ve recently methodized grocery shopping based off universal pantry staples, staples based off cuisine, and niche ingredients for different recipes. Good food is the cure to almost everything, I believe. I grew up with mostly asian flavors and cusines and they are a great comfort meal for whenever I’m feeling homesick. Cooking at home is also more nutritious. I’ve been learning more about medicinal ingredients and sharing my findings with my mom back home. On the weekends I like to plan for recipes and make my own versions. When the day ends, I like to medidate before going to bed. I think alot about inner peace, compassion and human sufferings. As I’ve had to live through war in my home country, these values have helped me to process difficult experiences and rethink what gives life meaning."
   },
   {
     "objectID": "index.html",

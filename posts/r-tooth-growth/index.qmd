@@ -1,0 +1,141 @@
+---
+title: "How Do Vitamin C Dose and Supplement Type Affect Tooth Growth?"
+author: "Pai Hwai"
+date: "2026-09-28"
+---
+
+# Introduction
+
+Does the amount of vitamin C and the type of supplement affect tooth growth?
+
+In this analysis, I explore the `ToothGrowth` dataset in R to see how tooth growth changes with different vitamin C doses and supplement types. This data exploration looks at whether a higher dose leads to more tooth growth and whether orange juice (OJ) or ascorbic acid (VC) makes a difference.
+
+## Data
+
+The `ToothGrowth` dataset is built into R. The dataset contains tooth growth measurements from guinea pigs given different doses of vitamin C through either orange juice (`OJ`) or ascorbic acid (`VC`).
+
+Data source: [R `datasets` package documentation](https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html)
+
+## Data Preparation
+
+Here I load the packages I need and take a look at the dataset.
+
+```{r}
+#| message: false
+#| warning: false
+
+library(dplyr)
+library(ggplot2)
+
+tooth_growth <- ToothGrowth
+
+head(tooth_growth)
+```
+
+I also check the structure of the dataset to see what variables I am working with.
+
+```{r}
+str(tooth_growth)
+```
+
+## Average Tooth Growth by Dose and Supplement Type
+
+To see how tooth growth changes, I compare the average tooth length for each vitamin C dose and supplement type.
+
+```{r}
+tooth_summary <- tooth_growth |>
+  group_by(dose, supp) |>
+  summarise(
+    mean_tooth_growth = mean(len),
+    .groups = "drop"
+  )
+
+tooth_summary
+```
+
+The average tooth growth increases as the vitamin C dose increases for both supplement types.
+
+At doses 0.5 and 1, orange juice (`OJ`) has a higher average tooth growth than ascorbic acid (`VC`). At dose 2, the average tooth growth is almost the same for both supplement types.
+
+Dose has a strong relationship with tooth growth, while supplement type may matter more at lower doses.
+
+## Tooth Growth by Vitamin C Dose
+
+To see the overall effect of dose more clearly, I compare the distribution of tooth growth across the three vitamin C dose levels.
+
+```{r}
+#| label: fig-tooth-growth-dose
+#| fig-cap: "Distribution of tooth growth across vitamin C dose levels."
+
+ggplot(tooth_growth, aes(x = factor(dose), y = len)) +
+  geom_boxplot() +
+  labs(
+    x = "Vitamin C dose",
+    y = "Tooth growth",
+    title = "Tooth Growth by Vitamin C Dose"
+  )
+```
+
+The boxplot shows that tooth growth generally increases as the vitamin C dose increases.
+
+The 0.5 dose has the lowest tooth growth values, while the 2.0 dose has the highest. There is still some variation within each dose group, but the overall pattern shows that higher doses are associated with greater tooth growth.
+
+## Tooth Growth by Supplement Type
+
+I compare tooth growth between orange juice (`OJ`) and ascorbic acid (`VC`) to see whether the supplement type makes a difference.
+
+```{r}
+#| label: fig-tooth-growth-supp
+#| fig-cap: "Distribution of tooth growth by supplement type."
+
+ggplot(tooth_growth, aes(x = supp, y = len)) +
+  geom_boxplot() +
+  labs(
+    x = "Supplement type",
+    y = "Tooth growth",
+    title = "Tooth Growth by Supplement Type"
+  )
+```
+
+The boxplot shows that orange juice (`OJ`) generally has higher tooth growth than ascorbic acid (`VC`).
+
+However, the two supplement types still overlap quite a lot. This suggests that supplement type alone does not drive tooth growth as much as vitamin C dose.
+
+## Dose and Supplement Type Together
+
+Since supplement type seems to matter differently at each dose, I compare both variables together.
+
+```{r}
+#| label: fig-tooth-growth-dose-supp
+#| fig-cap: "Tooth growth across vitamin C dose and supplement type."
+
+ggplot(
+  tooth_growth,
+  aes(
+    x = factor(dose),
+    y = len,
+    fill = supp
+  )
+) +
+  geom_boxplot(position = position_dodge(width = 0.8)) +
+  labs(
+    x = "Vitamin C dose",
+    y = "Tooth growth",
+    fill = "Supplement type",
+    title = "Tooth Growth by Dose and Supplement Type"
+  )
+```
+
+The plot shows that tooth growth increases as the vitamin C dose increases for both supplement types.
+
+At the lower doses of 0.5 and 1, orange juice (`OJ`) has higher tooth growth than ascorbic acid (`VC`). At dose 2, the two supplement types are much more similar.
+
+This suggests that Vitamin C dose has the strongest overall relationship with tooth growth, while supplement type seems to matter more at lower doses.
+
+## Conclusion
+
+Overall, tooth growth increases as the vitamin C dose increases.
+
+Orange juice (`OJ`) generally shows higher tooth growth than ascorbic acid (`VC`) at the lower doses, but this difference becomes much smaller at the highest dose.
+
+This analysis suggests that vitamin C dose has a stronger relationship with tooth growth than supplement type, although both appear to matter.

@@ -228,7 +228,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="data-preparation" class="level2">
 <h2 class="anchored" data-anchor-id="data-preparation">Data Preparation</h2>
 <p>Loading the dataset and packages needed for the analysis.</p>
-<div id="d9820051" class="cell" data-message="false" data-execution_count="1">
+<div id="5ebf5373" class="cell" data-message="false" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> palmerpenguins <span class="im">import</span> load_penguins</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
@@ -320,7 +320,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="check-for-missing-values" class="level2">
 <h2 class="anchored" data-anchor-id="check-for-missing-values">Check for Missing Values</h2>
 <p>I figure out how many missing values are present in the dataset and get an idea on how to deal with them.</p>
-<div id="763f4aae" class="cell" data-execution_count="2">
+<div id="73b58834" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>penguins[</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    [</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"species"</span>,</span>
@@ -343,7 +343,7 @@ dtype: int64</code></pre>
 <section id="data-cleaning" class="level1">
 <h1>Data Cleaning</h1>
 <p>Removing missing values. Missing values can interfere with summary statistics and visualizations, so I remove observations with missing values in the measurements used in this analysis.</p>
-<div id="88cd532c" class="cell" data-execution_count="3">
+<div id="8a3bd6d4" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>penguins_clean <span class="op">=</span> penguins.dropna(</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    subset<span class="op">=</span>[</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">"species"</span>,</span>
@@ -363,7 +363,7 @@ dtype: int64</code></pre>
 <h2 class="anchored" data-anchor-id="data-aggregation">Data Aggregation</h2>
 <p>To determine whether the penguin species differ physically, I compare the average body mass, flipper length, bill length, and bill depth for each species.</p>
 <p>I do this using Python’s <code>groupby()</code> and <code>agg()</code> functions to group observations by species and calculate the mean of each physical measurement.</p>
-<div id="a74bf74f" class="cell" data-execution_count="4">
+<div id="21eb031a" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>species_summary <span class="op">=</span> (</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    penguins_clean</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    .groupby(<span class="st">"species"</span>)</span>

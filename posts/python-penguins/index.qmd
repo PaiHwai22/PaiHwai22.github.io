@@ -1,0 +1,234 @@
+---
+title: "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?"
+author: "Pai Hwai"
+date: "2026-09-28"
+jupyter: python3
+---
+
+## Introduction
+Can we distinguish penguin species just by their physical measurements?
+
+In this analysis, I explore the Palmer Penguins dataset to compare features such as body mass, flipper length, bill length, and bill depth.
+I investigate whether these measurements can help distinguish a penguin's species and, if so, which feature appears to be the strongest indicator.
+
+## Data
+
+[Palmer Penguins](https://allisonhorst.github.io/palmerpenguins/), Palmer Station Antarctica LTER.
+
+The dataset contains measurements for Adelie, Gentoo and Chinstrap penguins. The variables I explore are body mass, flipper length, bill length, and bill depth.
+
+## Data Preparation
+
+Loading the dataset and packages needed for the analysis. 
+
+```{python}
+#| message: false
+#| warning: false
+
+from palmerpenguins import load_penguins
+import pandas as pd
+import matplotlib.pyplot as plt
+
+penguins = load_penguins()
+
+penguins.head()
+```
+
+## Check for Missing Values
+I figure out how many missing values are present in the dataset and get an idea on how to deal with them.
+
+```{python}
+penguins[
+    [
+        "species",
+        "body_mass_g",
+        "flipper_length_mm",
+        "bill_length_mm",
+        "bill_depth_mm"
+    ]
+].isna().sum()
+```
+
+# Data Cleaning
+Removing missing values. Missing values can interfere with summary statistics and visualizations, so I remove observations with missing values in the measurements used in this analysis. 
+
+```{python}
+penguins_clean = penguins.dropna(
+    subset=[
+        "species",
+        "body_mass_g",
+        "flipper_length_mm",
+        "bill_length_mm",
+        "bill_depth_mm"
+    ]
+)
+
+penguins_clean.shape
+```
+## Data Aggregation
+
+To determine whether the penguin species differ physically, I compare the average body mass, flipper length, bill length, and bill depth for each species.
+
+I do this using Python's `groupby()` and `agg()` functions to group observations by species and calculate the mean of each physical measurement.
+
+```{python}
+species_summary = (
+    penguins_clean
+    .groupby("species")
+    .agg(
+        mean_body_mass=("body_mass_g", "mean"),
+        mean_flipper_length=("flipper_length_mm", "mean"),
+        mean_bill_length=("bill_length_mm", "mean"),
+        mean_bill_depth=("bill_depth_mm", "mean")
+    )
+    .round(1)
+)
+
+species_summary
+```
+## Comparing Variable Distributions
+
+The averages show some differences between the three penguin species, but they do not show how much the individual measurements overlap.
+
+To find which physical feature may be the strongest indicator of species, I compare the distribution of each measurement across the three species.
+
+```{python}
+#| label: fig-flipper-species
+#| fig-cap: "Distribution of flipper length across Palmer penguin species."
+
+penguins_clean.boxplot(
+    column="flipper_length_mm",
+    by="species"
+)
+
+plt.xlabel("Species")
+plt.ylabel("Flipper length (mm)")
+plt.title("Flipper Length by Penguin Species")
+plt.suptitle("")
+
+plt.show()
+```
+The boxplot shows that Gentoo penguins generally have much longer flippers than Adelie and Chinstrap penguins. However, Adelie and Chinstrap have a lot of overlap in their flipper lengths.
+
+This suggests that flipper length may be a useful indicator for identifying Gentoo penguins, but it may not be enough to clearly distinguish between all three species.
+
+
+## Bill Length by Species
+
+Next, I compare bill length across the species to see if it provides clearer separation.
+
+```{python}
+#| label: fig-bill-length-species
+#| fig-cap: "Distribution of bill length across Palmer penguin species."
+
+penguins_clean.boxplot(
+    column="bill_length_mm",
+    by="species"
+)
+
+plt.xlabel("Species")
+plt.ylabel("Bill length (mm)")
+plt.title("Bill Length by Penguin Species")
+plt.suptitle("")
+
+plt.show()
+```
+The plot shows that Adelie penguins generally have shorter bills than Chinstrap and Gentoo penguins. Still, Chinstrap and Gentoo have a lot of overlap in their bill lengths.
+
+Bill length may be useful for identifying Adelie penguins, but it may not clearly distinguish between Chinstrap and Gentoo.
+
+
+## Bill Depth by Species
+
+I compare bill depth across the three species to see whether it provides a clearer distinction.
+
+```{python}
+#| label: fig-bill-depth-species
+#| fig-cap: "Distribution of bill depth across Palmer penguin species."
+
+penguins_clean.boxplot(
+    column="bill_depth_mm",
+    by="species"
+)
+
+plt.xlabel("Species")
+plt.ylabel("Bill depth (mm)")
+plt.title("Bill Depth by Penguin Species")
+plt.suptitle("")
+
+plt.show()
+```
+Gentoo penguins generally have shallower bills than Adelie and Chinstrap penguins. Adelie and Chinstrap have very similar bill depths and overlap heavily.
+
+Bill depth may be useful for identifying Gentoo penguins, but it's not enough to clearly distinguish between all three species.
+
+## Body Mass by Species
+
+Finally, I compare body mass across the three species to see whether body size provides a clearer distinction.
+
+```{python}
+#| label: fig-body-mass-species
+#| fig-cap: "Distribution of body mass across Palmer penguin species."
+
+penguins_clean.boxplot(
+    column="body_mass_g",
+    by="species"
+)
+
+plt.xlabel("Species")
+plt.ylabel("Body mass (g)")
+plt.title("Body Mass by Penguin Species")
+plt.suptitle("")
+
+plt.show()
+```
+The plot shows that Gentoo penguins generally have a much higher body mass than Adelie and Chinstrap penguins. Adelie and Chinstrap have very similar body mass distributions and overlap heavily.
+
+Body mass may be useful for identifying Gentoo penguins, but it is not enough to clearly distinguish between all three species.
+
+## Recap of the Analysis
+
+So far, each individual feature has some limitations:
+
+- **Flipper length:** helps identify Gentoo penguins.
+- **Body mass:** helps identify Gentoo penguins.
+- **Bill length:** helps identify Adelie penguins.
+- **Bill depth:** helps identify Gentoo penguins.
+
+No single measurement clearly separates all three species, so I next look at whether combining two measurements provides a clearer distinction.
+
+## Combining Bill Length and Bill Depth
+
+I compare bill length and bill depth together to see whether using two measurements provides a clearer distinction.
+
+```{python}
+#| label: fig-bill-comparison
+#| fig-cap: "Bill length and bill depth across Palmer penguin species."
+
+for species, group in penguins_clean.groupby("species"):
+    plt.scatter(
+        group["bill_length_mm"],
+        group["bill_depth_mm"],
+        label=species,
+        alpha=0.7
+    )
+
+plt.xlabel("Bill length (mm)")
+plt.ylabel("Bill depth (mm)")
+plt.title("Bill Length vs. Bill Depth by Penguin Species")
+plt.legend(title="Species")
+
+plt.show()
+```
+The scatterplot shows a much clearer separation between the three species when bill length and bill depth are considered together.
+
+Adelie penguins generally have shorter bills with greater bill depth, while Gentoo penguins tend to have longer but shallower bills. Chinstrap penguins generally have longer and deeper bills.
+
+There is still some overlap between individual penguins, but using both measurements together distinguishes the three species more clearly than using either measurement alone.
+
+
+## Conclusion
+
+Overall, the plots show that one measurement alone is not enough to clearly separate all three species. Gentoo penguins are easier to identify using body mass, flipper length, and bill depth, while bill length helps separate Adelie. The clearest result came from looking at bill length and bill depth together.
+
+This data exploration suggests that looking at a combination of physical features is a better indicator of penguin species than relying on a single feature.

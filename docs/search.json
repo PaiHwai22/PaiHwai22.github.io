@@ -4,7 +4,7 @@
     "href": "blog.html",
     "title": "Blog",
     "section": "",
-    "text": "My first weeks in MDS\n\n\n\n\n\n\n\n\nSep 12, 2026\n\n\nPai Hwai\n\n\n\n\n\nNo matching items"
+    "text": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?\n\n\n\n\n\n\n\n\nSep 28, 2026\n\n\nPai Hwai\n\n\n\n\n\n\n\n\n\n\n\n\nMy first weeks in MDS\n\n\n\n\n\n\n\n\nSep 12, 2026\n\n\nPai Hwai\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
@@ -19,6 +19,97 @@
     "title": "My first weeks in MDS",
     "section": "",
     "text": "A quiet afternoon on the UBC campus.\n\n\nThe first week was exciting yet full of challenges. Navigating where classes are and understanding how to retrieve and submit assignments were the most difficult parts. The pace was fast but I think by mid week two, I was able to adjust my time management. I have a good idea now on where I should be putting in more work to cover all the concepts. I also found some nice study spots in the koerner library where it’s really quiet. UBC is a big campus and there are still so many places to explore. Some of my favorite scenic places has to be the water fountain. I also like to grab coffee and some snacks in between lectures and enjoy the seasonal drinks. It’s a little self reward system that gives me something to look forward to in the day. It’s started to be a little chilly in the mornings and I caught a small cold. But as we are settling into new routines, I am really happy to be studying at such a beautiful campus. The rain hasn’t caught up to us yet, so its a great weather to be out and about."
+  },
+  {
+    "objectID": "posts/python-penguins/index.html",
+    "href": "posts/python-penguins/index.html",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "",
+    "text": "Can we distinguish penguin species just by their physical measurements?\nIn this analysis, I explore the Palmer Penguins dataset to compare features such as body mass, flipper length, bill length, and bill depth. I investigate whether these measurements can help distinguish a penguin’s species and, if so, which feature appears to be the strongest indicator."
+  },
+  {
+    "objectID": "posts/python-penguins/index.html#introduction",
+    "href": "posts/python-penguins/index.html#introduction",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "",
+    "text": "Can we distinguish penguin species just by their physical measurements?\nIn this analysis, I explore the Palmer Penguins dataset to compare features such as body mass, flipper length, bill length, and bill depth. I investigate whether these measurements can help distinguish a penguin’s species and, if so, which feature appears to be the strongest indicator."
+  },
+  {
+    "objectID": "posts/python-penguins/index.html#data",
+    "href": "posts/python-penguins/index.html#data",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "Data",
+    "text": "Data\nPalmer Penguins, Palmer Station Antarctica LTER.\nThe dataset contains measurements for Adelie, Gentoo and Chinstrap penguins. The variables I explore are body mass, flipper length, bill length, and bill depth."
+  },
+  {
+    "objectID": "posts/python-penguins/index.html#data-preparation",
+    "href": "posts/python-penguins/index.html#data-preparation",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "Data Preparation",
+    "text": "Data Preparation\nLoading the dataset and packages needed for the analysis.\n\nfrom palmerpenguins import load_penguins\nimport pandas as pd\nimport matplotlib.pyplot as plt\n\npenguins = load_penguins()\n\npenguins.head()\n\n\n\n\n\n\n\n\nspecies\nisland\nbill_length_mm\nbill_depth_mm\nflipper_length_mm\nbody_mass_g\nsex\nyear\n\n\n\n\n0\nAdelie\nTorgersen\n39.1\n18.7\n181.0\n3750.0\nmale\n2007\n\n\n1\nAdelie\nTorgersen\n39.5\n17.4\n186.0\n3800.0\nfemale\n2007\n\n\n2\nAdelie\nTorgersen\n40.3\n18.0\n195.0\n3250.0\nfemale\n2007\n\n\n3\nAdelie\nTorgersen\nNaN\nNaN\nNaN\nNaN\nNaN\n2007\n\n\n4\nAdelie\nTorgersen\n36.7\n19.3\n193.0\n3450.0\nfemale\n2007"
+  },
+  {
+    "objectID": "posts/python-penguins/index.html#check-for-missing-values",
+    "href": "posts/python-penguins/index.html#check-for-missing-values",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "Check for Missing Values",
+    "text": "Check for Missing Values\nI figure out how many missing values are present in the dataset and get an idea on how to deal with them.\n\npenguins[\n    [\n        \"species\",\n        \"body_mass_g\",\n        \"flipper_length_mm\",\n        \"bill_length_mm\",\n        \"bill_depth_mm\"\n    ]\n].isna().sum()\n\nspecies              0\nbody_mass_g          2\nflipper_length_mm    2\nbill_length_mm       2\nbill_depth_mm        2\ndtype: int64"
+  },
+  {
+    "objectID": "posts/python-penguins/index.html#data-aggregation",
+    "href": "posts/python-penguins/index.html#data-aggregation",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "Data Aggregation",
+    "text": "Data Aggregation\nTo determine whether the penguin species differ physically, I compare the average body mass, flipper length, bill length, and bill depth for each species.\nI do this using Python’s groupby() and agg() functions to group observations by species and calculate the mean of each physical measurement.\n\nspecies_summary = (\n    penguins_clean\n    .groupby(\"species\")\n    .agg(\n        mean_body_mass=(\"body_mass_g\", \"mean\"),\n        mean_flipper_length=(\"flipper_length_mm\", \"mean\"),\n        mean_bill_length=(\"bill_length_mm\", \"mean\"),\n        mean_bill_depth=(\"bill_depth_mm\", \"mean\")\n    )\n    .round(1)\n)\n\nspecies_summary\n\n\n\n\n\n\n\n\nmean_body_mass\nmean_flipper_length\nmean_bill_length\nmean_bill_depth\n\n\nspecies\n\n\n\n\n\n\n\n\nAdelie\n3700.7\n190.0\n38.8\n18.3\n\n\nChinstrap\n3733.1\n195.8\n48.8\n18.4\n\n\nGentoo\n5076.0\n217.2\n47.5\n15.0"
+  },
+  {
+    "objectID": "posts/python-penguins/index.html#comparing-variable-distributions",
+    "href": "posts/python-penguins/index.html#comparing-variable-distributions",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "Comparing Variable Distributions",
+    "text": "Comparing Variable Distributions\nThe averages show some differences between the three penguin species, but they do not show how much the individual measurements overlap.\nTo find which physical feature may be the strongest indicator of species, I compare the distribution of each measurement across the three species.\n\npenguins_clean.boxplot(\n    column=\"flipper_length_mm\",\n    by=\"species\"\n)\n\nplt.xlabel(\"Species\")\nplt.ylabel(\"Flipper length (mm)\")\nplt.title(\"Flipper Length by Penguin Species\")\nplt.suptitle(\"\")\n\nplt.show()\n\n\n\n\n\n\n\nFigure 1: Distribution of flipper length across Palmer penguin species.\n\n\n\n\n\nThe boxplot shows that Gentoo penguins generally have much longer flippers than Adelie and Chinstrap penguins. However, Adelie and Chinstrap have a lot of overlap in their flipper lengths.\nThis suggests that flipper length may be a useful indicator for identifying Gentoo penguins, but it may not be enough to clearly distinguish between all three species."
+  },
+  {
+    "objectID": "posts/python-penguins/index.html#bill-length-by-species",
+    "href": "posts/python-penguins/index.html#bill-length-by-species",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "Bill Length by Species",
+    "text": "Bill Length by Species\nNext, I compare bill length across the species to see if it provides clearer separation.\n\npenguins_clean.boxplot(\n    column=\"bill_length_mm\",\n    by=\"species\"\n)\n\nplt.xlabel(\"Species\")\nplt.ylabel(\"Bill length (mm)\")\nplt.title(\"Bill Length by Penguin Species\")\nplt.suptitle(\"\")\n\nplt.show()\n\n\n\n\n\n\n\nFigure 2: Distribution of bill length across Palmer penguin species.\n\n\n\n\n\nThe plot shows that Adelie penguins generally have shorter bills than Chinstrap and Gentoo penguins. Still, Chinstrap and Gentoo have a lot of overlap in their bill lengths.\nBill length may be useful for identifying Adelie penguins, but it may not clearly distinguish between Chinstrap and Gentoo."
+  },
+  {
+    "objectID": "posts/python-penguins/index.html#bill-depth-by-species",
+    "href": "posts/python-penguins/index.html#bill-depth-by-species",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "Bill Depth by Species",
+    "text": "Bill Depth by Species\nI compare bill depth across the three species to see whether it provides a clearer distinction.\n\npenguins_clean.boxplot(\n    column=\"bill_depth_mm\",\n    by=\"species\"\n)\n\nplt.xlabel(\"Species\")\nplt.ylabel(\"Bill depth (mm)\")\nplt.title(\"Bill Depth by Penguin Species\")\nplt.suptitle(\"\")\n\nplt.show()\n\n\n\n\n\n\n\nFigure 3: Distribution of bill depth across Palmer penguin species.\n\n\n\n\n\nGentoo penguins generally have shallower bills than Adelie and Chinstrap penguins. Adelie and Chinstrap have very similar bill depths and overlap heavily.\nBill depth may be useful for identifying Gentoo penguins, but it’s not enough to clearly distinguish between all three species."
+  },
+  {
+    "objectID": "posts/python-penguins/index.html#body-mass-by-species",
+    "href": "posts/python-penguins/index.html#body-mass-by-species",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "Body Mass by Species",
+    "text": "Body Mass by Species\nFinally, I compare body mass across the three species to see whether body size provides a clearer distinction.\n\npenguins_clean.boxplot(\n    column=\"body_mass_g\",\n    by=\"species\"\n)\n\nplt.xlabel(\"Species\")\nplt.ylabel(\"Body mass (g)\")\nplt.title(\"Body Mass by Penguin Species\")\nplt.suptitle(\"\")\n\nplt.show()\n\n\n\n\n\n\n\nFigure 4: Distribution of body mass across Palmer penguin species.\n\n\n\n\n\nThe plot shows that Gentoo penguins generally have a much higher body mass than Adelie and Chinstrap penguins. Adelie and Chinstrap have very similar body mass distributions and overlap heavily.\nBody mass may be useful for identifying Gentoo penguins, but it is not enough to clearly distinguish between all three species."
+  },
+  {
+    "objectID": "posts/python-penguins/index.html#recap-of-the-analysis",
+    "href": "posts/python-penguins/index.html#recap-of-the-analysis",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "Recap of the Analysis",
+    "text": "Recap of the Analysis\nSo far, each individual feature has some limitations:\n\nFlipper length: helps identify Gentoo penguins.\nBody mass: helps identify Gentoo penguins.\nBill length: helps identify Adelie penguins.\nBill depth: helps identify Gentoo penguins.\n\nNo single measurement clearly separates all three species, so I next look at whether combining two measurements provides a clearer distinction."
+  },
+  {
+    "objectID": "posts/python-penguins/index.html#combining-bill-length-and-bill-depth",
+    "href": "posts/python-penguins/index.html#combining-bill-length-and-bill-depth",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "Combining Bill Length and Bill Depth",
+    "text": "Combining Bill Length and Bill Depth\nI compare bill length and bill depth together to see whether using two measurements provides a clearer distinction.\n\nfor species, group in penguins_clean.groupby(\"species\"):\n    plt.scatter(\n        group[\"bill_length_mm\"],\n        group[\"bill_depth_mm\"],\n        label=species,\n        alpha=0.7\n    )\n\nplt.xlabel(\"Bill length (mm)\")\nplt.ylabel(\"Bill depth (mm)\")\nplt.title(\"Bill Length vs. Bill Depth by Penguin Species\")\nplt.legend(title=\"Species\")\n\nplt.show()\n\n\n\n\n\n\n\nFigure 5: Bill length and bill depth across Palmer penguin species.\n\n\n\n\n\nThe scatterplot shows a much clearer separation between the three species when bill length and bill depth are considered together.\nAdelie penguins generally have shorter bills with greater bill depth, while Gentoo penguins tend to have longer but shallower bills. Chinstrap penguins generally have longer and deeper bills.\nThere is still some overlap between individual penguins, but using both measurements together distinguishes the three species more clearly than using either measurement alone."
+  },
+  {
+    "objectID": "posts/python-penguins/index.html#conclusion",
+    "href": "posts/python-penguins/index.html#conclusion",
+    "title": "Data Exploration with Palmer Penguins: Can physical measurements distinguish Penguin Species?",
+    "section": "Conclusion",
+    "text": "Conclusion\nOverall, the plots show that one measurement alone is not enough to clearly separate all three species. Gentoo penguins are easier to identify using body mass, flipper length, and bill depth, while bill length helps separate Adelie. The clearest result came from looking at bill length and bill depth together.\nThis data exploration suggests that looking at a combination of physical features is a better indicator of penguin species than relying on a single feature."
   },
   {
     "objectID": "about.html",
